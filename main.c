@@ -99,7 +99,7 @@ int main(void)
         return -1;
     }
 
-    if (dtm_cmd(LE_TRANSMITTER_TEST, 22, CARRIER_TEST, DTM_PKT_VENDORSPECIFIC) != DTM_SUCCESS)
+    if (dtm_cmd(LE_TRANSMITTER_TEST, 10, CARRIER_TEST, DTM_PKT_VENDORSPECIFIC) != DTM_SUCCESS)
     {
         // Extended error handling may be put here. 
         // Default behavior is to return the event on the UART (see below);
