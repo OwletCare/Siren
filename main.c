@@ -92,6 +92,9 @@ int main(void)
 
     uart_init();
 
+    nrf_gpio_pin_dir_set(2, NRF_GPIO_PIN_DIR_OUTPUT);
+    nrf_gpio_pin_write(2, 1);
+    
     dtm_error_code = dtm_init();
     if (dtm_error_code != DTM_SUCCESS)
     {
