@@ -87,13 +87,23 @@ static void uart_init(void)
  */
 int main(void)
 {
+    enum {
+        dtm_payload_size = 37,
+        //test_channel = 0,
+        //test_channel = 19,
+        test_channel = 39,
+    };
     uint32_t    dtm_error_code;
     dtm_event_t result;                    // Result of a DTM operation.
 
     uart_init();
 
+    // Set transmit power to -12 dBm on Nordic, plus PA
+    //  This matches how the BLE module is configured in base station
+    //  and sock code
+    dtm_set_txpower(RADIO_TXPOWER_TXPOWER_Neg12dBm);
     nrf_gpio_pin_dir_set(2, NRF_GPIO_PIN_DIR_OUTPUT);
-    nrf_gpio_pin_write(2, 1);
+    nrf_gpio_pin_write(2, 0);
     
     dtm_error_code = dtm_init();
     if (dtm_error_code != DTM_SUCCESS)
@@ -102,7 +112,7 @@ int main(void)
         return -1;
     }
 
-    if (dtm_cmd(LE_TRANSMITTER_TEST, 10, CARRIER_TEST, DTM_PKT_VENDORSPECIFIC) != DTM_SUCCESS)
+    if (dtm_cmd(LE_TRANSMITTER_TEST, test_channel, dtm_payload_size, DTM_PKT_0X55) != DTM_SUCCESS)
     {
         // Extended error handling may be put here. 
         // Default behavior is to return the event on the UART (see below);

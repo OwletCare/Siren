@@ -1,0 +1,1 @@
+nrfutil.exe dfu genpkg --application Siren.hex direct_test_mode_24xx.zip
